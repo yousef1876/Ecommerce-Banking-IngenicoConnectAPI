@@ -1,0 +1,90 @@
+<section class="content-header">
+    <h1>
+        Customer
+        <small>Add New Customer</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Customer</a></li>
+        <li class="active">New Customer</li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+
+    <div class="row">
+
+        <h3>{{message}}</h3>
+
+    <div class="panel ">
+        <div class="panel-heading">
+            Transactions Information
+        </div>
+        <div class="panel-body">
+
+            <div class="form-group">
+                <div class="col-sm-8">
+                    <label control-label class="col-sm-2">Transaction Type</label>
+                    <div class="col-sm-6">
+                        <select class="form-control" ng-model='searchTrans.type'>
+                            <option value="0">All</option>
+                            <option value="1">Cash In</option>
+                            <option value="2">Cash Out</option>
+                            <option value="3">Topup</option>
+                            <option value="5">Mobile Payment</option>
+                            <option value="6">Remit</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-sm-8">
+                        <label class="control-label col-sm-2" >From</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" type="date" id="fromDate" name="fromDate" ng-model='searchTrans.fromDate'
+                                    />
+                        </div>
+                        <label class="control-label col-sm-1" >To</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" type="date" id="toDate" name="toDate" ng-model='searchTrans.toDate'
+                                   />
+
+                        </div>
+
+                </div>
+                <div class="col-sm-8">
+                    <label class="control-label col-sm-2">Wallet No.</label>
+                    <div class="form-inline">
+                        <div class="col-sm-9">
+                            <input class="form-control" ng-model='searchTrans.walletNo' placeholder="Enter Wallet Number">
+                            <form role="form" name="searchTransactionsForm" ng-submit="searchTransactions()" novalidate>
+                            <button type="submit"  class="btn btn-primary" >Search</button>
+                                </form>
+                        </div>
+                    </div>
+                </div>
+
+                <table datatable="ng" class="row-border hover">
+        <thead>
+        <tr>
+            <th>Wallet No</th>
+            <th>Amount</th>
+            <th>Date</th>
+            <th>Type</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="odd gradeX"  ng-repeat="trans in transactions">
+            <td> {{ trans.walletNo }}</td>
+            <td> {{ trans.amount }}</td>
+            <td> {{ trans.date  | date:'MM/dd/yyyy HH:mm'}}</td>
+            <td> {{ trans.transactionTypeName }}</td>
+        </tr>
+
+        </tbody>
+    </table>
+
+</div>
+</div>
+</div>
+</div>
+</section>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="eHiringProcess" name="eHiringProcess" isExecutable="true">
+    <startEvent id="startevent1" name="Start"></startEvent>
+    <userTask id="hr_posting_job_task00" name="HR_JOB_POSTING" activiti:assignee="${hr_username}"></userTask>
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="hr_posting_job_task00"></sequenceFlow>
+    <userTask id="collectResume_tasks_01" name="collectResume" activiti:assignee="${hr_username}"></userTask>
+    <sequenceFlow id="flow2" sourceRef="hr_posting_job_task00" targetRef="collectResume_tasks_01"></sequenceFlow>
+    <userTask id="search_candidate_task_03" name="search_candidate" activiti:assignee="${hr_username}">
+      <documentation>${documentation}</documentation>
+    </userTask>
+    <serviceTask id="mailtask02" name="Mail Task" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression><![CDATA[${receiver}]]></activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:expression><![CDATA[${sender}]]></activiti:expression>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:expression><![CDATA[${subject}]]></activiti:expression>
+        </activiti:field>
+        <activiti:field name="html">
+          <activiti:expression><![CDATA[${body}]]></activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow3" sourceRef="collectResume_tasks_01" targetRef="mailtask02"></sequenceFlow>
+    <sequenceFlow id="flow4" sourceRef="mailtask02" targetRef="search_candidate_task_03"></sequenceFlow>
+    <userTask id="evaluatehr_tasks04" name="EvaluateTasks" activiti:assignee="${hr_username}">
+      <documentation>${evaluate_docs}</documentation>
+    </userTask>
+    <sequenceFlow id="flow5" sourceRef="search_candidate_task_03" targetRef="evaluatehr_tasks04"></sequenceFlow>
+    <userTask id="offer_letter_tasks05" name="OfferLetter" activiti:assignee="${hr_username}">
+      <documentation>${offer_docs}</documentation>
+    </userTask>
+    <sequenceFlow id="flow6" sourceRef="evaluatehr_tasks04" targetRef="offer_letter_tasks05"></sequenceFlow>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <sequenceFlow id="flow7" sourceRef="offer_letter_tasks05" targetRef="endevent1"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_eHiringProcess">
+    <bpmndi:BPMNPlane bpmnElement="eHiringProcess" id="BPMNPlane_eHiringProcess">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="30.0" y="30.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="hr_posting_job_task00" id="BPMNShape_hr_posting_job_task00">
+        <omgdc:Bounds height="55.0" width="131.0" x="140.0" y="20.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="collectResume_tasks_01" id="BPMNShape_collectResume_tasks_01">
+        <omgdc:Bounds height="55.0" width="105.0" x="380.0" y="20.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="search_candidate_task_03" id="BPMNShape_search_candidate_task_03">
+        <omgdc:Bounds height="55.0" width="105.0" x="590.0" y="180.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask02" id="BPMNShape_mailtask02">
+        <omgdc:Bounds height="55.0" width="105.0" x="590.0" y="20.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="evaluatehr_tasks04" id="BPMNShape_evaluatehr_tasks04">
+        <omgdc:Bounds height="55.0" width="105.0" x="590.0" y="310.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="offer_letter_tasks05" id="BPMNShape_offer_letter_tasks05">
+        <omgdc:Bounds height="55.0" width="105.0" x="370.0" y="310.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="236.0" y="320.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="65.0" y="47.0"></omgdi:waypoint>
+        <omgdi:waypoint x="140.0" y="47.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="271.0" y="47.0"></omgdi:waypoint>
+        <omgdi:waypoint x="380.0" y="47.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="485.0" y="47.0"></omgdi:waypoint>
+        <omgdi:waypoint x="590.0" y="47.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="642.0" y="75.0"></omgdi:waypoint>
+        <omgdi:waypoint x="642.0" y="180.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="642.0" y="235.0"></omgdi:waypoint>
+        <omgdi:waypoint x="642.0" y="310.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+        <omgdi:waypoint x="590.0" y="337.0"></omgdi:waypoint>
+        <omgdi:waypoint x="475.0" y="337.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
+        <omgdi:waypoint x="370.0" y="337.0"></omgdi:waypoint>
+        <omgdi:waypoint x="271.0" y="337.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

@@ -1,0 +1,29 @@
+server.port: 9088
+server.contextPath: /ngapp
+
+logging.file: data/logs/core.log
+
+spring:
+  profiles:
+    active: dev
+
+  datasource:
+    url: jdbc:postgresql://localhost/directory
+    username: openhrms
+    password: openhrms
+    
+
+  jpa:
+    show-sql: true
+
+    hibernate:
+      ddl-auto: update
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+    properties:
+      hibernate:
+        format_sql: false
+        generate_statistics: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+
